@@ -107,6 +107,40 @@ function fillCustomerForm(customer) {
     }
 }
 
+async function getNextCustomerId() {
+
+    const counterRef = db
+        .collection("counters")
+        .doc("customers");
+
+    return await db.runTransaction(async (transaction) => {
+
+        const counterDoc = await transaction.get(counterRef);
+
+        let lastId = 0;
+
+        if (counterDoc.exists) {
+            lastId = counterDoc.data().lastId || 0;
+        }
+
+        const nextId = lastId + 1;
+
+        transaction.set(
+            counterRef,
+            {
+                lastId: nextId
+            },
+            {
+                merge: true
+            }
+        );
+
+        return nextId;
+
+    });
+
+}
+
 btnCancelCustomer.addEventListener("click", () => {
     customerModal.close();
 });
@@ -145,8 +179,6 @@ customerForm.addEventListener("submit", async (event) => {
         };
 
         if (modalMode === "add") {
-            // O ID numérico deve ser obtido através
-            // do contador transacional.
             const customerId = await getNextCustomerId();
 
             await db.collection("customers").add({
@@ -154,7 +186,8 @@ customerForm.addEventListener("submit", async (event) => {
                 customerId,
                 checkIn: false,
                 active: true,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             });
         }
 
