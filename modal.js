@@ -19,6 +19,9 @@ const customerName =
 const customerDateOfBirth =
     document.getElementById("customer-date-of-birth");
 
+const customerActive = 
+    document.getElementById("customer-active");
+
 const btnCancelCustomer =
     document.getElementById("btn-cancel-customer");
 
@@ -159,6 +162,7 @@ customerForm.addEventListener("submit", async (event) => {
 
     const name = customerName.value.trim();
     const dateOfBirth = customerDateOfBirth.value;
+    const active = customerActive.checked;
 
     if (!name || !dateOfBirth) {
         M.toast({
@@ -175,7 +179,8 @@ customerForm.addEventListener("submit", async (event) => {
             name,
             dateOfBirth: firebase.firestore.Timestamp.fromDate(
                 new Date(`${dateOfBirth}T12:00:00`)
-            )
+            ),
+            active
         };
 
         if (modalMode === "add") {
