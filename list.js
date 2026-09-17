@@ -89,7 +89,7 @@ function renderCustomers(data) {
         const name = document.createElement("span");
 
         name.className = "list-item-main-value";
-        name.textContent = customer.name || "Sem nome";
+        name.textContent = customer.name + " | " + customer.customerId || "Sem nome";
 
         const actions = document.createElement("div");
 
