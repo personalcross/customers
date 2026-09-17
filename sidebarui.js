@@ -60,9 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "signup": "https://personalcross.github.io/signup/",
 
         "gym": "https://personalcross.github.io/gym/",
-        "customers": "https:/personalcross.github.io/customers/",
-        "exercises": "https:/personalcross.github.io/exercises/",
-        "prescriptions": "https:/personalcross.github.io/prescriptions/",
+        "customers": "https://personalcross.github.io/customers/",
+        "exercises": "https://personalcross.github.io/exercises/",
+        "prescriptions": "https://personalcross.github.io/prescriptions/",
         "workouts": "https://personalcross.github.io/workouts/",
         
         "manage-accounts": "https://personalcross.github.io/manage-accounts/",
