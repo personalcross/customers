@@ -25,7 +25,7 @@ async function loadCustomers() {
 
         customers.sort((a, b) => {
 
-            // Ativos primeiro
+            // actives first
             const activeA = a.active === true ? 0 : 1;
             const activeB = b.active === true ? 0 : 1;
 
@@ -33,7 +33,7 @@ async function loadCustomers() {
                 return activeA - activeB;
             }
 
-            // Ordem alfabética dentro de cada grupo
+            // alfa order inside groups
             return (a.name || "").localeCompare(
                 b.name || "",
                 "pt-BR",
