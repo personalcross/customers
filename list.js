@@ -81,9 +81,14 @@ function renderCustomers(data) {
 
         item.className = "list-item";
 
-        // Identifica clientes inativos
+        // Identity inactive clients
         if (customer.active !== true) {
             item.classList.add("inactive");
+        }
+
+        // Indentify check-in clients
+        if (customer.checkIn === true) {
+            item.classList.add("check-in");
         }
 
         const name = document.createElement("span");
