@@ -144,6 +144,41 @@ async function getNextCustomerId() {
 
 }
 
+async function toggleCustomerCheckStatus(customer) {
+
+    const newCheckInStatus =
+        !customer.checkIn;
+
+    try {
+
+        await db.collection("customers")
+            .doc(customer.documentId)
+            .update({
+                checkIn: newCheckInStatus,
+                updatedAt:
+                    firebase.firestore.FieldValue
+                        .serverTimestamp()
+            });
+
+        customer.checkIn =
+            newCheckInStatus;
+
+        renderCustomers(customers);
+
+    } catch (error) {
+
+        console.error(
+            "Erro ao alterar estado de check-in:",
+            error
+        );
+
+        M.toast({
+            html:
+                "Não foi possível alterar o check-in."
+        });
+    }
+}
+
 btnCancelCustomer.addEventListener("click", () => {
     customerModal.close();
 });

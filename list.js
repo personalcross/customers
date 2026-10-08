@@ -86,21 +86,41 @@ function renderCustomers(data) {
             item.classList.add("inactive");
         }
 
+        let checkImgSrc = "";
+
         // Indentify check-in clients
         if (customer.checkIn === true) {
             item.classList.add("check-in");
+
+            // customer can check-out
+            checkImgSrc = "https://personalcross.github.io/assets/store/check-out.png"
+        } else {
+            // customer can check-in
+            checkImgSrc = "https://personalcross.github.io/assets/store/check-in.png"
         }
 
         const name = document.createElement("span");
 
         name.className = "list-item-main-value";
-        name.textContent = customer.name + " | " + customer.customerId || "Sem nome";
+        name.textContent = customer.name || "Sem nome";
 
         const actions = document.createElement("div");
 
         actions.className = "list-item-actions";
 
         actions.innerHTML = `
+            <button
+                class="list-item-action"
+                data-action="check"
+                data-id="${customer.documentId}"
+                aria-label="Check">
+
+                <img
+                    src="${checkImgSrc}"
+                    alt="">
+                
+            </button>
+
             <button
                 class="list-item-action"
                 data-action="history"
@@ -188,6 +208,10 @@ customersList.addEventListener("click", event => {
 
     if (action === "edit") {
         openCustomerModal(customer, "edit");
+    }
+
+    if (action === "check") {
+        toggleCustomerCheckStatus(customer)
     }
 
     if (action === "history") {
